@@ -99,12 +99,12 @@ Table of Contents
    o  Older and weaker cryptographic parameters (e.g.,
       TLS_RSA_WITH_RC4_128_SHA).
 
-   o  TLS SNI and server certificates are frequently subjects with
-      domain generation algorithm (DGA) (e.g., www.33mhwt2j.net).
+   o  TLS SNI and server certificates are composed of subjects with
+      characteristics of a domain generation algorithm (DGA) (e.g.,
+      www.33mhwt2j.net).
 
    o  Higher use of self-signed certificates compared with typical
       legitimate software.
-
 
 
 
@@ -154,7 +154,7 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
    This document extends MUD [RFC8520] to model observable (D)TLS
    profile parameters.  Using these (D)TLS profile parameters, an active
    MUD-enforcing firewall can identify MUD non-compliant DTLS and TLS
-   behavior that can indicate malware is running on the MUD device.
+   behavior that can indicate malware is running on the IoT device.
    This detection can prevent malware download, block access to
    malicious domains, enforce use of strong ciphers, stop data
    exfiltration, etc.  In addition, organizations may have policies
@@ -569,8 +569,8 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
    names (Section 8 of [RFC8520]).  Thus the use of a public DNS server
    is incompatible with MUD.  A local DNS server is necessary to allow
    MUD policy enforcement on the local network
-   [I-D.ietf-doh-resolver-associated-doh] and
-   [I-D.reddy-dprive-bootstrap-dns-server].
+   ([I-D.ietf-doh-resolver-associated-doh] and
+   [I-D.reddy-dprive-bootstrap-dns-server]).
 
 5.2.  Full (D)TLS 1.3 handshake inspection
 
@@ -686,8 +686,8 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
            "client-profile": {
              "tls-version-profile" : [
               {
-                    "protocol-version" : 0x0303,
-                    "supported_versions_ext" : FALSE,
+                    "protocol-version" : 771,
+                    "supported_versions_ext" : "FALSE",
                     "encryption-algorithms" : [31354, 4865, 4866, 4867],
                     "extension-types" : [10],
                     "supported-groups" : [29],
@@ -697,9 +697,9 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
               }
              ]
            }
-
          }
        }
+   }
 
 7.  Security Considerations
 

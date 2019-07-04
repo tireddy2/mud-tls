@@ -88,8 +88,9 @@
           <t>Older and weaker cryptographic parameters (e.g.,
           TLS_RSA_WITH_RC4_128_SHA).</t>
 
-          <t>TLS SNI and server certificates are frequently subjects with
-          domain generation algorithm (DGA) (e.g., www.33mhwt2j.net).</t>
+          <t>TLS SNI and server certificates are composed of subjects with
+          characteristics of a domain generation algorithm (DGA) (e.g.,
+          www.33mhwt2j.net).</t>
 
           <t>Higher use of self-signed certificates compared with typical
           legitimate software.</t>
@@ -138,7 +139,7 @@
       observable (D)TLS profile parameters. Using these (D)TLS profile
       parameters, an active MUD-enforcing firewall can identify MUD
       non-compliant DTLS and TLS behavior that can indicate malware is running
-      on the MUD device. This detection can prevent malware download, block
+      on the IoT device. This detection can prevent malware download, block
       access to malicious domains, enforce use of strong ciphers, stop data
       exfiltration, etc. In addition, organizations may have policies around
       acceptable ciphers and certificates on the websites the IoT devices
@@ -227,7 +228,7 @@
           self-signed server certificates or raw public keys</t>
 
           <t>If SNI mismatch is allowed or not, and if SNI mismatch is
-          allowed, the server names for which SNI mismatch is allowed. </t>
+          allowed, the server names for which SNI mismatch is allowed.</t>
         </list></t>
 
       <t>If the (D)TLS profile parameters are not observed in a (D)TLS session
@@ -492,9 +493,9 @@
         server, which cannot enforce the MUD policy based on domain names
         (Section 8 of <xref target="RFC8520"></xref>). Thus the use of a
         public DNS server is incompatible with MUD. A local DNS server is
-        necessary to allow MUD policy enforcement on the local network <xref
+        necessary to allow MUD policy enforcement on the local network (<xref
         target="I-D.ietf-doh-resolver-associated-doh"></xref> and <xref
-        target="I-D.reddy-dprive-bootstrap-dns-server"></xref>. </t>
+        target="I-D.reddy-dprive-bootstrap-dns-server"></xref>).</t>
       </section>
 
       <section title="Full (D)TLS 1.3 handshake inspection">
@@ -554,7 +555,7 @@
           </list></t>
 
         <t>The proposed technique empowers the middle-box to reject (D)TLS 1.3
-        sessions that violate the MUD (D)TLS profile. </t>
+        sessions that violate the MUD (D)TLS profile.</t>
       </section>
     </section>
 
@@ -576,8 +577,8 @@
         "client-profile": {
           "tls-version-profile" : [
            {
-                 "protocol-version" : 0x0303,
-                 "supported_versions_ext" : FALSE,
+                 "protocol-version" : 771,
+                 "supported_versions_ext" : "FALSE",
                  "encryption-algorithms" : [31354, 4865, 4866, 4867],  
                  "extension-types" : [10],  
                  "supported-groups" : [29],  
@@ -587,9 +588,9 @@
            }
           ]  
         }
-
       }
     }
+}
 ]]></artwork>
         </figure></t>
     </section>
