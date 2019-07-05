@@ -489,10 +489,11 @@
         conjunction with DNS encryption (e.g., DNS-over-(D)TLS or DNS-
         over-HTTPS). Firewall inspecting the (D)TLS 1.3 handshake cannot
         decrypt encrypted SNI. If an IoT device is configured to use public
-        DNS servers the policy enforcement point is moved to that public
-        server, which cannot enforce the MUD policy based on domain names
-        (Section 8 of <xref target="RFC8520"></xref>). Thus the use of a
-        public DNS server is incompatible with MUD. A local DNS server is
+        DNS-over-(D)TLS or DNS- over-HTTPS servers, the policy enforcement
+        point is moved to that public server, which cannot enforce the MUD
+        policy based on domain names (Section 8 of <xref
+        target="RFC8520"></xref>). Thus the use of a public DNS-over-(D)TLS or
+        DNS- over-HTTPS server is incompatible with MUD. A local DNS server is
         necessary to allow MUD policy enforcement on the local network (<xref
         target="I-D.ietf-doh-resolver-associated-doh"></xref> and <xref
         target="I-D.reddy-dprive-bootstrap-dns-server"></xref>).</t>

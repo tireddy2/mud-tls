@@ -5,8 +5,8 @@
 OPSWG WG                                                        T. Reddy
 Internet-Draft                                                    McAfee
 Intended status: Standards Track                                 D. Wing
-Expires: January 4, 2020                                          Citrix
-                                                            July 3, 2019
+Expires: January 6, 2020                                          Citrix
+                                                            July 5, 2019
 
 
                   MUD (D)TLS profiles for IoT devices
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 4, 2020.
+   This Internet-Draft will expire on January 6, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Reddy & Wing             Expires January 4, 2020                [Page 1]
+Reddy & Wing             Expires January 6, 2020                [Page 1]
 
 Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy & Wing             Expires January 4, 2020                [Page 2]
+Reddy & Wing             Expires January 6, 2020                [Page 2]
 
 Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
@@ -165,7 +165,7 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
 
 
-Reddy & Wing             Expires January 4, 2020                [Page 3]
+Reddy & Wing             Expires January 6, 2020                [Page 3]
 
 Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
@@ -221,7 +221,7 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
 
 
-Reddy & Wing             Expires January 4, 2020                [Page 4]
+Reddy & Wing             Expires January 6, 2020                [Page 4]
 
 Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
@@ -277,7 +277,7 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
 
 
-Reddy & Wing             Expires January 4, 2020                [Page 5]
+Reddy & Wing             Expires January 6, 2020                [Page 5]
 
 Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
@@ -333,7 +333,7 @@ module reddy-opsawg-mud-tls-profile {
 
 
 
-Reddy & Wing             Expires January 4, 2020                [Page 6]
+Reddy & Wing             Expires January 6, 2020                [Page 6]
 
 Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
@@ -389,7 +389,7 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
 
 
-Reddy & Wing             Expires January 4, 2020                [Page 7]
+Reddy & Wing             Expires January 6, 2020                [Page 7]
 
 Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
@@ -445,7 +445,7 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
 
 
-Reddy & Wing             Expires January 4, 2020                [Page 8]
+Reddy & Wing             Expires January 6, 2020                [Page 8]
 
 Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
@@ -501,7 +501,7 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
 
 
-Reddy & Wing             Expires January 4, 2020                [Page 9]
+Reddy & Wing             Expires January 6, 2020                [Page 9]
 
 Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
@@ -557,18 +557,19 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
 
 
-Reddy & Wing             Expires January 4, 2020               [Page 10]
+Reddy & Wing             Expires January 6, 2020               [Page 10]
 
 Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
 
    DNS- over-HTTPS).  Firewall inspecting the (D)TLS 1.3 handshake
    cannot decrypt encrypted SNI.  If an IoT device is configured to use
-   public DNS servers the policy enforcement point is moved to that
-   public server, which cannot enforce the MUD policy based on domain
-   names (Section 8 of [RFC8520]).  Thus the use of a public DNS server
-   is incompatible with MUD.  A local DNS server is necessary to allow
-   MUD policy enforcement on the local network
+   public DNS-over-(D)TLS or DNS- over-HTTPS servers, the policy
+   enforcement point is moved to that public server, which cannot
+   enforce the MUD policy based on domain names (Section 8 of
+   [RFC8520]).  Thus the use of a public DNS-over-(D)TLS or DNS- over-
+   HTTPS server is incompatible with MUD.  A local DNS server is
+   necessary to allow MUD policy enforcement on the local network
    ([I-D.ietf-doh-resolver-associated-doh] and
    [I-D.reddy-dprive-bootstrap-dns-server]).
 
@@ -612,8 +613,7 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
 
 
-
-Reddy & Wing             Expires January 4, 2020               [Page 11]
+Reddy & Wing             Expires January 6, 2020               [Page 11]
 
 Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
@@ -669,7 +669,7 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
 
 
-Reddy & Wing             Expires January 4, 2020               [Page 12]
+Reddy & Wing             Expires January 6, 2020               [Page 12]
 
 Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
@@ -725,7 +725,7 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
 
 
-Reddy & Wing             Expires January 4, 2020               [Page 13]
+Reddy & Wing             Expires January 6, 2020               [Page 13]
 
 Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
@@ -781,7 +781,7 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
 
 
-Reddy & Wing             Expires January 4, 2020               [Page 14]
+Reddy & Wing             Expires January 6, 2020               [Page 14]
 
 Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
@@ -837,7 +837,7 @@ Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
 
 
-Reddy & Wing             Expires January 4, 2020               [Page 15]
+Reddy & Wing             Expires January 6, 2020               [Page 15]
 
 Internet-Draft       MUD TLS profile for IoT devices           July 2019
 
@@ -893,4 +893,4 @@ Authors' Addresses
 
 
 
-Reddy & Wing             Expires January 4, 2020               [Page 16]
+Reddy & Wing             Expires January 6, 2020               [Page 16]
