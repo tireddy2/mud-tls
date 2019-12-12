@@ -244,16 +244,16 @@
       record layers called Encrypted Extensions. Using these extensions
       handshake messages will be encrypted and network devices (such as a
       firewall) are incapable deciphering the handshake, thus cannot view the
-      server certificate. However, the list of supported versions, named
-      groups, cipher suites, signature algorithms and extensions offered by
-      the client in the ClientHello message and, a few parameters in the
-      ServerHello are still visible such as the chosen cipher. For instance,
-      if the malware uses evasion techniques like ClientHello randomization,
-      the observable list of cipher suites and extensions offered by the
-      malware agent in the ClientHello message will not match the list of
-      cipher suites and extensions offered by the legitimate client in the
+      server certificate. However, the ClientHello and ServerHello still have
+      some fields visible, such as the list of supported versions, named
+      groups, cipher suites, signature algorithms and extensions in
+      ClientHello and, chosen cipher in the ServerHello. For instance, if the
+      malware uses evasion techniques like ClientHello randomization, the
+      observable list of cipher suites and extensions offered by the malware
+      agent in the ClientHello message will not match the list of cipher
+      suites and extensions offered by the legitimate client in the
       ClientHello message, and the middle-box can block malicious flows
-      without acting as a (D)TLS 1.3 proxy. </t>
+      without acting as a (D)TLS 1.3 proxy.</t>
 
       <section title="Full (D)TLS 1.3 handshake inspection">
         <t>To obtain more visibility into negotiated TLS 1.3 parameters, a
@@ -425,6 +425,9 @@
       from the IoT device, the default behaviour is to block the (D)TLS
       session.</t>
 
+      <t>Note: The TLS and DTLS IANA registries are available from <eref
+      target="https://www.iana.org/assignments/tls-parameters/tls-parameters.txt"></eref>.</t>
+
       <section title="Tree Structure">
         <t>This document augments the "ietf-mud" MUD YANG module defined in
         <xref target="RFC8520"></xref> for signaling the IoT device (D)TLS
@@ -515,32 +518,32 @@
 
    revision 2019-06-12 {
      description
-       "Initial revision.";
+       "Initial revision";
    }
 
    typedef compression-method {
      type uint8;
-     description "Compression method.";
+     description "Compression method";
    }
 
    typedef extension-type {
      type uint16;
-     description "Extension type.";
+     description "Extension type";
    }
 
    typedef encryption-algorithm {
      type uint16;
-     description "Encryption algorithm.";
+     description "Encryption algorithm";
    }
 
    typedef supported-group {
      type uint16;
-     description "Named group (DHE or ECDHE).";
+     description "Named group (DHE or ECDHE)";
    }
 
    typedef SPKI-pin-set {
      type binary;
-     description "Subject Public Key Info pin set.";
+     description "Subject Public Key Info pin set";
    }
 
    typedef signature-algorithm {
@@ -568,7 +571,7 @@
        list tls-profiles {
          key "profile-name";
          description
-          "(D)TLS version profiles supported by the client";
+          "A list of (D)TLS version profiles supported by the client.";
         leaf profile-name {
           type string {
             length "1..64";
@@ -579,7 +582,7 @@
          }
          leaf protocol-version {
            type uint16;
-           description "Legacy protocol version.";
+           description "(D)TLS version in ClientHello.legacy_version";
          }  
          leaf-list supported_versions {
            type uint16;
@@ -740,7 +743,7 @@
     </section>
 
     <section anchor="acknowledgments" title="Acknowledgments">
-      <t>Thanks to Flemming Andreasen, Shashank Jain and Harsha Joshi for the
+      <t>Thanks to Flemming Andreasen, Shashank Jain, and Harsha Joshi for the
       discussion and comments.</t>
     </section>
   </middle>
