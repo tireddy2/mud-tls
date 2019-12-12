@@ -60,13 +60,13 @@
 
       <address>
         <postal>
-          <street></street>
+          <street>170 West Tasman Dr</street>
 
-          <city></city>
+          <city>San Jose</city>
 
-          <region></region>
+          <region>CA</region>
 
-          <code></code>
+          <code>95134</code>
 
           <country>USA</country>
         </postal>
@@ -80,10 +80,10 @@
     <workgroup>OPSWG WG</workgroup>
 
     <abstract>
-      <t>This memo extends Manufacturer Usage Description (MUD) to model DTLS
-      and TLS usage. This allows a network element to notice abnormal DTLS or
-      TLS usage which has been strong indicator of other software running on
-      the endpoint, typically malware.</t>
+      <t>This memo extends Manufacturer Usage Description (MUD) to incorporate
+      (D)TLS profile parameters. This allows a network element to identify unexpected (D)TLS
+      usage, which can indicate the presence of unauthorized software or malware on
+      an endpoint.</t>
     </abstract>
   </front>
 
@@ -92,8 +92,8 @@
       <t>Encryption is necessary to protect the privacy of end users using IoT
       devices. In a network setting, TLS <xref target="RFC8446"></xref> and
       DTLS <xref target="I-D.ietf-tls-dtls13"></xref> are the dominant
-      protocols to provide encryption for IoT device traffic. Unfortunately in
-      conjunction with IoT applications rise of encryption, malware is also
+      protocols providing encryption for IoT device traffic. Unfortunately, in
+      conjunction with IoT applications' rise of encryption, malware is also
       using encryption which thwarts network-based analysis such as deep
       packet inspection (DPI). Other mechanisms are needed to notice malware
       is running on the IoT device.</t>
@@ -102,7 +102,7 @@
       those libraries are re-used much like any other software engineering
       project. Research <xref target="malware"></xref> indicates there are
       observable differences in how malware uses encryption compared with
-      non-malware uses encryption. There are several interesting findings
+      how non-malware uses encryption. There are several interesting findings
       specific to DTLS and TLS which were found common to malware: <list
           style="symbols">
           <t>Older and weaker cryptographic parameters (e.g.,
@@ -127,18 +127,18 @@
           <t>Lower diversity in TLS client advertised TLS extensions compared
           to legitimate clients.</t>
 
-          <t>Malware using privacy enhancing technologies like Tor, Phisphon
+          <t>Malware using privacy enhancing technologies like Tor, Psiphon
           and Ultrasurf (see <xref target="malware-tls"></xref>) and, evasion
           techniques such as ClientHello randomization to evade detection in
           order to continue exploiting the end user.</t>
         </list></t>
 
       <t>If observable (D)TLS profile parameters are used, the following
-      functions are possible which have a the favorable impact on network
+      functions are possible which have a favorable impact on network
       security:</t>
 
       <t><list style="symbols">
-          <t>Permit intended DTLS or TLS use and to block malicious DTLS or
+          <t>Permit intended DTLS or TLS use and block malicious DTLS or
           TLS use. This is superior to the layer 3 and layer 4 ACLs of
           Manufacturer Usage Description Specification (MUD) <xref
           target="RFC8520"></xref> which are not suitable for broad
@@ -146,10 +146,10 @@
 
           <t>Ensure TLS certificates are valid. Several TLS deployments have
           been vulnerable to active Man-In-The-Middle (MITM) attacks because
-          of lack of certificate validation. By observing (D)TLS profile
-          parameters, a network element can detect when the TLS SNI mismatches
-          the SubjectAltName and detect when the server's certificate is
-          invalid, and alert those situations. In TLS 1.2, the ClientHello,
+          of the lack of certificate validation. By observing (D)TLS profile
+          parameters, a network element can detect when the TLS SNI
+          mismatches the SubjectAltName and when the server's
+          certificate is invalid. In TLS 1.2, the ClientHello,
           ServerHello and Certificate messages are all sent in clear-text,
           however in TLS 1.3, the Certificate message is encrypted thereby
           hiding the server identity from any intermediary. In TLS 1.3, the
@@ -157,21 +157,21 @@
           certificate and to detect TLS SNI mismatch with the server
           certificate.</t>
 
-          <t>Support new communication patterns. IoT device can learn a new
-          capability, and the new capability changes the way the IoT device
+          <t>Support new communication patterns. An IoT device can learn a new
+          capability, and the new capability can change the way the IoT device
           communicates with other devices located in the local network and
-          Internet. In other words, if IP addresses and domain names the IoT
-          device connects to rapidly changes based on a new capability and MUD
-          rules using ACLs cannot be rapidly updated. In such a case,
+          Internet. There would be an inaccurate policy if an IoT device
+          rapidly changes the IP addresses and domain names it communicates with
+          while the MUD ACLs were slower to update. In such a case,
           observable (D)TLS profile parameters can be used to permit intended
-          use and to block malicious behaviour of the IoT device.</t>
+          use and to block malicious behaviour from the IoT device.</t>
         </list></t>
 
       <t>This document extends MUD <xref target="RFC8520"></xref> to model
       observable (D)TLS profile parameters. Using these (D)TLS profile
       parameters, an active MUD-enforcing firewall can identify MUD
-      non-compliant DTLS and TLS behavior that can indicate malware is running
-      on the IoT device. This detection can prevent malware download, block
+      non-compliant (D)TLS behavior indicating outdated cryptography
+      or malware. This detection can prevent malware downloads, block
       access to malicious domains, enforce use of strong ciphers, stop data
       exfiltration, etc. In addition, organizations may have policies around
       acceptable ciphers and certificates on the websites the IoT devices
@@ -179,9 +179,9 @@
       TLS, no use of self-signed certificates, deny-list or accept-list of
       Certificate Authorities, valid certificate expiration time, etc. These
       policies can be enforced by observing the (D)TLS profile parameters.
-      Enterprise firewall can use the IoT device's (D)TLS profile parameters
-      to identify legitimate flows by observation of (D)TLS sessions, and can
-      make inferences to permit legitimate flows and to block malicious flows.
+      Enterprise firewalls can use the IoT device's (D)TLS profile parameters
+      to identify legitimate flows by observing (D)TLS sessions, and can
+      make inferences to permit legitimate flows and to block malicious or insecure flows.
       The proposed technique is also suitable in deployments where decryption
       techniques are not ideal due to privacy concerns, non-cooperating
       end-points and expense.</t>
@@ -205,7 +205,7 @@
       both on end hosts and in the network. Host agents have deep visibility
       on the devices where they are installed, whereas the network has broader
       visibility. Installing host agents may not be a viable option on IoT
-      devices, and network-based security can only be used to protect such IoT
+      devices, and network-based security is an efficient means to protect such IoT
       devices. (D)TLS profile parameters of IoT device can be used by
       middle-boxes to detect and block malware communication, while at the
       same time preserving the privacy of legitimate uses of encryption.
@@ -213,26 +213,25 @@
       parameters of (D)TLS handshakes from IoT devices and gain good
       visibility into TLS 1.0 to 1.2 parameters and partial visibility into
       TLS 1.3 parameters. Malicious agents can try to use the (D)TLS profile
-      parameters as legitimate agents to evade detection but it becomes a
+      parameters of legitimate agents to evade detection, but it becomes a
       challenge to mimic the behavior of various IoT device types and IoT
       device models from several manufacturers. In other words, malware
       developers will have to develop malicious agents per IoT device type,
-      manufacturer and model (which will be several thousands), infect the
-      device with specific malware agent and will have keep up with the
-      updates to (D)TLS profile parameters of IoT devices. Further, the
-      malware command and control server certificates needs to be signed by
-      the same certifying authorities trusted by the IoT devices. Typically
+      manufacturer and model, infect the
+      device with the tailored malware agent and will have keep up with
+      updates to the device's (D)TLS profile parameters over time. Further, the
+      malware's command and control server certificates need to be signed by
+      the same certifying authorities trusted by the IoT devices. Typically,
       IoT devices have an infrastructure that supports a rapid deployment of
-      updates, malware agents will have a near-impossible task of similarly
+      updates, and malware agents will have a near-impossible task of similarly
       deploying updates and continuing to mimic the TLS behavior of the IoT
       device it has infected.</t>
 
       <t>The compromised IoT devices are typically used for launching DDoS
-      attacks (Section 3 of <xref target="RFC8576"></xref>) on victims while
-      the owner/administrator of the network is not aware about such
-      misbehaviors. Some of the DDoS attacks like Slowloris and Transport
+      attacks (Section 3 of <xref target="RFC8576"></xref>).
+      Some of the DDoS attacks like Slowloris and Transport
       Layer Security (TLS) re-negotiation can be detected by observing the
-      (D)TLS profile parameters. For example, the victim server certificate
+      (D)TLS profile parameters. For example, the victim's server certificate
       need not be signed by the same certifying authorities trusted by the IoT
       device.</t>
     </section>
