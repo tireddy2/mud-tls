@@ -168,7 +168,7 @@
           malicious behavior from the IoT device.</t>
         </list></t>
 
-      <t>The YANG module specified in <xref target="YANG"></xref> of this
+      <t>The YANG module specified in <xref target="YANG2"></xref> of this
       document is an extension of YANG Data Model for Network Access Control
       Lists (ACLs) <xref target="RFC8519"></xref> to enhance MUD <xref
       target="RFC8520"></xref> to model observable (D)TLS profile parameters.
@@ -200,8 +200,8 @@
 
       <t>"(D)TLS" is used for statements that apply to both Transport Layer
       Security <xref target="RFC8446"></xref> and Datagram Transport Layer
-      Security <xref target="RFC6347"></xref>. Specific terms are used for any
-      statement that applies to either protocol alone.</t>
+      Security <xref target="RFC6347"></xref>. Specific terms "TLS" and "DTLS"
+      are used for any statement that applies to either protocol alone.</t>
 
       <t>'DoH/DoT' refers to DNS-over-HTTPS and/or DNS-over-TLS.</t>
     </section>
@@ -260,17 +260,17 @@
       encrypted. (D)TLS 1.3 has introduced new extensions in the handshake
       record layers called Encrypted Extensions. Using these extensions
       handshake messages will be encrypted and network security services (such
-      as a firewall) are incapable to decipher the handshake, and thus cannot
-      view the server certificate. However, the ClientHello and ServerHello
-      still have some fields visible, such as the list of supported versions,
-      named groups, cipher suites, signature algorithms and extensions in
-      ClientHello, and chosen cipher in the ServerHello. For instance, if the
-      malware uses evasion techniques like ClientHello randomization, the
-      observable list of cipher suites and extensions offered by the malware
-      agent in the ClientHello message will not match the list of cipher
-      suites and extensions offered by the legitimate client in the
-      ClientHello message, and the middlebox can block malicious flows without
-      acting as a (D)TLS 1.3 proxy.</t>
+      as a firewall) are incapable of deciphering the handshake, and thus
+      cannot view the server certificate. However, the ClientHello and
+      ServerHello still have some fields visible, such as the list of
+      supported versions, named groups, cipher suites, signature algorithms
+      and extensions in ClientHello, and chosen cipher in the ServerHello. For
+      instance, if the malware uses evasion techniques like ClientHello
+      randomization, the observable list of cipher suites and extensions
+      offered by the malware agent in the ClientHello message will not match
+      the list of cipher suites and extensions offered by the legitimate
+      client in the ClientHello message, and the middlebox can block malicious
+      flows without acting as a (D)TLS 1.3 proxy.</t>
 
       <section anchor="full" title="Full (D)TLS 1.3 Handshake Inspection">
         <t>To obtain more visibility into negotiated TLS 1.3 parameters, a
@@ -359,19 +359,19 @@
           by the private CA). This empowers the middlebox to reject TLS
           sessions to servers that the IoT device does not trust.</t>
 
-          <t>List of SPKI pin set pre-configured on the client to validate
-          self-signed server certificates or raw public keys. A SPKI pin set
-          is a cryptographic digest to "pin" public key information in a
-          manner similar to HTTP Public Key Pinning (HPKP) <xref
-          target="RFC7469"></xref>. If SPKI pin set is present in the (D)TLS
-          profile of a IoT device and the server certificate does not pass the
-          PKIX certification path validation, the middlebox computes the SPKI
-          Fingerprint for the public key found in the server's certificate (or
-          in the raw public key, if the server provides that instead). If a
-          computed fingerprint exactly matches one of the SPKI pin sets in the
-          (D)TLS profile, the middlebox continues with the connection as
-          normal. Otherwise, the middlebox will act on the SPKI validation
-          failure and takes appropriate action.</t>
+          <t>List of Subject Public Key Info (SPKI) pin set pre-configured on
+          the client to validate self-signed server certificates or raw public
+          keys. A SPKI pin set is a cryptographic digest to "pin" public key
+          information in a manner similar to HTTP Public Key Pinning (HPKP)
+          <xref target="RFC7469"></xref>. If SPKI pin set is present in the
+          (D)TLS profile of a IoT device and the server certificate does not
+          pass the PKIX certification path validation, the middlebox computes
+          the SPKI Fingerprint for the public key found in the server's
+          certificate (or in the raw public key, if the server provides that
+          instead). If a computed fingerprint exactly matches one of the SPKI
+          pin sets in the (D)TLS profile, the middlebox continues with the
+          connection as normal. Otherwise, the middlebox will act on the SPKI
+          validation failure and takes appropriate action.</t>
 
           <t>Cryptographic hash algorithm <xref target="RFC6234"></xref><xref
           target="SHA3"></xref> used to generate the SPKI pinsets</t>
@@ -420,8 +420,9 @@
       <section title="Tree Structure of the (D)TLS profile Extension to the ACL YANG Model">
         <t>This document augments the "ietf-acl" ACL YANG module defined in
         <xref target="RFC8519"></xref> for signaling the IoT device (D)TLS
-        profile. This document defines the YANG module "ietf-acl-tls", which
-        has the following tree structure:</t>
+        profile. This document defines the YANG module "ietf-acl-tls". The
+        meaning of the symbols in the YANG tree diagram are defined in <xref
+        target="RFC8340"></xref> and it has the following tree structure:</t>
 
         <t><figure>
             <artwork><![CDATA[module: ietf-acl-tls
@@ -465,13 +466,14 @@
           </figure></t>
       </section>
 
-      <section title="The (D)TLS profile Extension to the ACL YANG Model">
+      <section anchor="YANG2"
+               title="The (D)TLS profile Extension to the ACL YANG Model">
         <t><figure>
             <artwork><![CDATA[<CODE BEGINS> file "ietf-acl-tls@2022-10-10.yang"
 module ietf-acl-tls {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-acl-tls";
-  prefix ietf-acl-tls;
+  prefix acl-tls;
 
   import iana-tls-profile {
     prefix ianatp;
@@ -511,7 +513,7 @@ module ietf-acl-tls {
 
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject
-     to the license terms contained in, the Simplified BSD License
+     to the license terms contained in, the Revised BSD License
      set forth in Section 4.c of the IETF Trust's Legal Provisions
      Relating to IETF Documents
      (http://trustee.ietf.org/license-info).
@@ -519,7 +521,7 @@ module ietf-acl-tls {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2020-11-02 {
+  revision 2022-10-10 {
     description
       "Initial revision";
     reference
@@ -803,7 +805,7 @@ module iana-tls-profile {
 
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject
-     to the license terms contained in, the Simplified BSD License
+     to the license terms contained in, the Revised BSD License
      set forth in Section 4.c of the IETF Trust's Legal Provisions
      Relating to IETF Documents
      (http://trustee.ietf.org/license-info).
@@ -811,7 +813,7 @@ module iana-tls-profile {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2020-11-02 {
+  revision 2022-10-10 {
     description
       "Initial revision";
     reference
@@ -997,7 +999,7 @@ module ietf-mud-tls {
      WG List: opsawg@ietf.org
 
      Author: Konda, Tirumaleswar Reddy
-             TirumaleswarReddy_Konda@McAfee.com
+             kondtir@gmail.com
 
     ";
    description
@@ -1009,7 +1011,7 @@ module ietf-mud-tls {
 
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject
-     to the license terms contained in, the Simplified BSD License
+     to the license terms contained in, the Revised BSD License
      set forth in Section 4.c of the IETF Trust's Legal Provisions
      Relating to IETF Documents
      (http://trustee.ietf.org/license-info).
@@ -1017,7 +1019,7 @@ module ietf-mud-tls {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-   revision 2020-10-19 {
+   revision 2022-10-10 {
      description
        "Initial revision.";
        reference
@@ -1207,6 +1209,14 @@ module ietf-mud-tls {
       "normal" behavior and where an "anomaly" (or an attack) is identified
       and categorized based on the knowledge about the normal behavior and a
       deviation from this normal behavior.</t>
+
+      <t>Please note that the security considerations mentioned in Section 3.7
+      of <xref target="RFC8407"></xref> are not applicable in this case
+      because the YANG serialization is not intended to be accessed via
+      NETCONF. However, for those who try to instantiate this model in a
+      network element via the Network Configuration Protocol (NETCONF), all
+      objects in each model in this document exhibit similar security
+      characteristics as <xref target="RFC8519"></xref>. </t>
     </section>
 
     <section anchor="Privacy" title="Privacy Considerations">
@@ -1217,21 +1227,21 @@ module ietf-mud-tls {
       security, and prevent exposure to unauthorized software.</t>
 
       <t>Full handshake inspection (<xref target="full"></xref>) requires a
-      TLS proxy device which needs to decrypt traffic between the IoT device
-      and its server(s). There is a tradeoff between privacy of the data
-      carried inside TLS (especially e.g., personally identifiable information
-      and protected health information) and efficacy of endpoint security. It
-      is strongly RECOMMENDED to avoid a TLS proxy whenever possible. For
-      example, an enterprise firewall administrator can configure the
-      middlebox to bypass TLS proxy functionality or payload inspection for
-      connections destined to specific well-known services. Alternatively, a
-      IoT device could be configured to reject all sessions that involve proxy
-      servers to specific well-known services. In addition, mechanisms based
-      on object security can be used by IoT devices to enable end-to-end
-      security and the middlebox will not have any access to the packet data.
-      For example, Object Security for Constrained RESTful Environments
-      (OSCORE) <xref target="RFC8613"></xref> is a proposal that protects CoAP
-      messages by wrapping them in the COSE format <xref
+      (D)TLS proxy device which needs to decrypt traffic between the IoT
+      device and its server(s). There is a tradeoff between privacy of the
+      data carried inside (D)TLS (especially e.g., personally identifiable
+      information and protected health information) and efficacy of endpoint
+      security. It is strongly RECOMMENDED to avoid a (D)TLS proxy whenever
+      possible. For example, an enterprise firewall administrator can
+      configure the middlebox to bypass (D)TLS proxy functionality or payload
+      inspection for connections destined to specific well-known services.
+      Alternatively, a IoT device could be configured to reject all sessions
+      that involve proxy servers to specific well-known services. In addition,
+      mechanisms based on object security can be used by IoT devices to enable
+      end-to-end security and the middlebox will not have any access to the
+      packet data. For example, Object Security for Constrained RESTful
+      Environments (OSCORE) <xref target="RFC8613"></xref> is a proposal that
+      protects CoAP messages by wrapping them in the COSE format <xref
       target="RFC8152"></xref>.</t>
     </section>
 
@@ -1261,7 +1271,13 @@ module ietf-mud-tls {
         target="yang-iana"></xref>, which will allow for new (D)TLS parameters
         and (D)TLS versions to be added to "client-profile". The registration
         procedure will be Expert Review, as defined by <xref
-        target="RFC8126"></xref>.</t>
+        target="RFC8126"></xref>. The designated expert allows new (D)TLS
+        parameters to be added to the YANG Module provided they were added to
+        the TLS and DTLS IANA registries and if the new (D)TLS parameters can
+        be used by a middlebox to identify a MUD non-compliant (D)TLS
+        behavior. The designated expert allows new (D)TLS version to be added
+        to the YANG Module provided the new (D)TLS version specification is
+        adopted by the TLS WG. </t>
 
         <t>This document requests IANA to register the following YANG modules
         in the "YANG Module Names" subregistry <xref target="RFC6020"></xref>
@@ -1455,8 +1471,8 @@ module ietf-mud-tls {
     <section anchor="acknowledgments" title="Acknowledgments">
       <t>Thanks to Flemming Andreasen, Shashank Jain, Michael Richardson,
       Piyush Joshi, Eliot Lear, Harsha Joshi, Qin Wu, Mohamed Boucadair, Ben
-      Schwartz, Eric Rescorla, Panwei William, Nick Lamb and Nick Harper for
-      the discussion and comments.</t>
+      Schwartz, Eric Rescorla, Panwei William, Nick Lamb, Tom Petch and Nick
+      Harper for the discussion and comments.</t>
     </section>
   </middle>
 
@@ -1481,6 +1497,8 @@ module ietf-mud-tls {
       <?rfc include='reference.RFC.9147'?>
 
       <?rfc include='reference.RFC.6234'?>
+
+      <?rfc include='reference.RFC.8520'?>
 
       <?rfc include="reference.I-D.ietf-netconf-crypto-types"  ?>
 
@@ -1523,8 +1541,6 @@ module ietf-mud-tls {
     </references>
 
     <references title="Informative References">
-      <?rfc include='reference.RFC.8520'?>
-
       <?rfc include='reference.RFC.7951'?>
 
       <?rfc include="reference.RFC.7469"?>
@@ -1556,6 +1572,10 @@ module ietf-mud-tls {
       <?rfc include='reference.RFC.8447'?>
 
       <?rfc include='reference.RFC.5869'?>
+
+      <?rfc include='reference.RFC.8340'?>
+
+      <?rfc include='reference.RFC.8407'?>
 
       <?rfc include="reference.I-D.ietf-tls-esni" ?>
 
