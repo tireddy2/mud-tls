@@ -1122,23 +1122,21 @@ module ietf-mud-tls {
       and categorized based on the knowledge about the normal behavior and a
       deviation from this normal behavior.</t>
 
-      <t>Please note that the security considerations mentioned in Section 3.7
-      of <xref target="RFC8407"></xref> are not applicable in this case
-      because the YANG serialization is not intended to be accessed via
-      NETCONF and RESTCONF. However, for those who try to instantiate this
-      model in a network element via the NETCONF and RESTCONF, all objects in
-      each model in this document exhibit similar security characteristics as
-      <xref target="RFC8519"></xref>. This has already been discussed in <xref
+      <t>The YANG modules are not intended to be accessed via NETCONF and
+      RESTCONF. However, for those who try to instantiate this model in a
+      network element via the NETCONF and RESTCONF, all objects in each model
+      in this document exhibit similar security characteristics as <xref
+      target="RFC8519"></xref>. This has already been discussed in <xref
       target="RFC8520"></xref>, and we are reiterating it here for the sake of
-      completeness. </t>
+      completeness.</t>
 
       <section title="Considerations for the &quot;iana-tls-profile&quot; Module">
         <t>This section follows the template defined in Section 3.7.1 of <xref
         target="RFC8407"></xref>.</t>
 
         <t>The YANG module specified in this document defines a schema for
-        data can possibility be accessed via network management protocols such
-        as NETCONF <xref target="RFC6241"></xref> or RESTCONF <xref
+        data can possibly be accessed via network management protocols such as
+        NETCONF <xref target="RFC6241"></xref> or RESTCONF <xref
         target="RFC8040"></xref>. These network management protocols are
         required to use a secure transport layer and mutual authentication,
         e.g., SSH <xref target="RFC6242"></xref> without the "none"
@@ -1150,15 +1148,15 @@ module ietf-mud-tls {
         <t>The Network Access Control Model (NACM) <xref
         target="RFC8341"></xref> provides the means to restrict access for
         particular users to a pre-configured subset of all available protocol
-        operations and content. </t>
+        operations and content.</t>
 
         <t>This YANG module defines YANG enumerations, for a public IANA-
-        maintained registry. </t>
+        maintained registry.</t>
 
         <t>YANG enumerations are not security-sensitive, as they are
         statically defined in the publicly-accessible YANG module. IANA MAY
         deprecate and/or obsolete enumerations over time as needed to address
-        security issues. </t>
+        security issues.</t>
 
         <t>This module does not define any writable-nodes, RPCs, actions, or
         notifications, and thus the security consideration for such is not
@@ -1198,7 +1196,7 @@ module ietf-mud-tls {
         (D)TLS versions, cipher suites etc., can dramatically alter the
         implemented security policy. For this reason, the NACM extension
         "default-deny-write" has been set for all data nodes defined in this
-        module. </t>
+        module.</t>
 
         <t>This module does not define any RPCs, actions, or notifications,
         and thus the security consideration for such is not provided here.</t>
@@ -1209,15 +1207,18 @@ module ietf-mud-tls {
         target="RFC8407"></xref>.</t>
 
         <t>The YANG module specified in this document defines a schema for
-        data can possibility be accessed via network management protocols such
-        as NETCONF <xref target="RFC6241"></xref> or RESTCONF <xref
+        data can possibly be accessed via network management protocols such as
+        NETCONF <xref target="RFC6241"></xref> or RESTCONF <xref
         target="RFC8040"></xref>. These network management protocols are
         required to use a secure transport layer and mutual authentication,
         e.g., SSH <xref target="RFC6242"></xref> without the "none"
         authentication option, Transport Layer Security (TLS) <xref
         target="RFC8446"></xref> with mutual X.509 authentication, and HTTPS
         with HTTP authentication (Section 11 of <xref
-        target="RFC9110"></xref>).</t>
+        target="RFC9110"></xref>). Note that the YANG module is not intended
+        to be accessed via NETCONF and RESTCONF. This has already been
+        discussed in <xref target="RFC8520"></xref>, and we are reiterating it
+        here for the sake of completeness.</t>
 
         <t>The Network Access Control Model (NACM) <xref
         target="RFC8341"></xref> provides the means to restrict access for
@@ -1236,7 +1237,7 @@ module ietf-mud-tls {
         instance, update that the device does not support (D)TLS profile can
         dramatically alter the implemented security policy. For this reason,
         the NACM extension "default-deny-write" has been set for all data
-        nodes defined in this module. </t>
+        nodes defined in this module.</t>
 
         <t>This module does not define any RPCs, actions, or notifications,
         and thus the security consideration for such is not provided here.</t>

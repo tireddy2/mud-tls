@@ -1304,9 +1304,7 @@ Internet-Draft     MUD (D)TLS Profile for IoT devices          July 2024
    attack) is identified and categorized based on the knowledge about
    the normal behavior and a deviation from this normal behavior.
 
-   Please note that the security considerations mentioned in Section 3.7
-   of [RFC8407] are not applicable in this case because the YANG
-   serialization is not intended to be accessed via NETCONF and
+   The YANG modules are not intended to be accessed via NETCONF and
    RESTCONF.  However, for those who try to instantiate this model in a
    network element via the NETCONF and RESTCONF, all objects in each
    model in this document exhibit similar security characteristics as
@@ -1319,7 +1317,7 @@ Internet-Draft     MUD (D)TLS Profile for IoT devices          July 2024
    [RFC8407].
 
    The YANG module specified in this document defines a schema for data
-   can possibility be accessed via network management protocols such as
+   can possibly be accessed via network management protocols such as
    NETCONF [RFC6241] or RESTCONF [RFC8040].  These network management
    protocols are required to use a secure transport layer and mutual
    authentication, e.g., SSH [RFC6242] without the "none" authentication
@@ -1338,6 +1336,8 @@ Internet-Draft     MUD (D)TLS Profile for IoT devices          July 2024
    defined in the publicly-accessible YANG module.  IANA MAY deprecate
    and/or obsolete enumerations over time as needed to address security
    issues.
+
+
 
 
 
@@ -1391,7 +1391,7 @@ Internet-Draft     MUD (D)TLS Profile for IoT devices          July 2024
    [RFC8407].
 
    The YANG module specified in this document defines a schema for data
-   can possibility be accessed via network management protocols such as
+   can possibly be accessed via network management protocols such as
    NETCONF [RFC6241] or RESTCONF [RFC8040].  These network management
    protocols are required to use a secure transport layer and mutual
 
@@ -1405,7 +1405,10 @@ Internet-Draft     MUD (D)TLS Profile for IoT devices          July 2024
    authentication, e.g., SSH [RFC6242] without the "none" authentication
    option, Transport Layer Security (TLS) [RFC8446] with mutual X.509
    authentication, and HTTPS with HTTP authentication (Section 11 of
-   [RFC9110]).
+   [RFC9110]).  Note that the YANG module is not intended to be accessed
+   via NETCONF and RESTCONF.  This has already been discussed in
+   [RFC8520], and we are reiterating it here for the sake of
+   completeness.
 
    The Network Access Control Model (NACM) [RFC8341] provides the means
    to restrict access for particular users to a pre-configured subset of
@@ -1447,9 +1450,6 @@ Internet-Draft     MUD (D)TLS Profile for IoT devices          July 2024
    malware on the IoT device won't be able to establish a (D)TLS
    connection with the C&C server to reveal this information because the
    connection would be blocked by the network security service
-   supporting this specification.
-
-
 
 
 
@@ -1457,6 +1457,8 @@ Reddy, et al.            Expires 13 January 2025               [Page 26]
 
 Internet-Draft     MUD (D)TLS Profile for IoT devices          July 2024
 
+
+   supporting this specification.
 
    Full handshake inspection (Section 4.1) requires a (D)TLS proxy
    device which needs to decrypt traffic between the IoT device and its
@@ -1503,8 +1505,6 @@ Internet-Draft     MUD (D)TLS Profile for IoT devices          July 2024
    This document requests IANA to register the following YANG modules in
    the "YANG Module Names" subregistry [RFC6020] within the "YANG
    Parameters" registry.
-
-
 
 
 
