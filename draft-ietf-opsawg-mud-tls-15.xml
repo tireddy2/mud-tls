@@ -485,7 +485,7 @@ module ietf-acl-tls {
       IETF description of an access list to allow (D)TLS profile
       as matching criteria.
 
-     Copyright (c) 2020 IETF Trust and the persons identified as
+     Copyright (c) 2024 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -719,7 +719,7 @@ module iana-tls-profile {
   description
     "This module contains YANG definition for the (D)TLS profile.
 
-     Copyright (c) 2020 IETF Trust and the persons identified as
+     Copyright (c) 2024 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -729,8 +729,16 @@ module iana-tls-profile {
      Relating to IETF Documents
      (http://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC XXXX; see
-     the RFC itself for full legal notices.";
+     All revisions of IETF and IANA published modules can be found
+     at the YANG Parameters registry
+     (https://www.iana.org/assignments/yang-parameters).
+
+     The initial version of this YANG module is part of RFC XXXX;
+     see the RFC itself for full legal notices.
+
+     // RFC Ed.: replace the IANA_TLS-PROFILE_URL and remove this note
+     The latest version of this YANG module is available at
+     <IANA_TLS-PROFILE_URL>.";
 
   revision 2022-10-10 {
     description
@@ -905,7 +913,7 @@ module ietf-mud-tls {
      "Extension to a MUD module to indicate (D)TLS 
       profile support.
 
-     Copyright (c) 2020 IETF Trust and the persons identified as
+     Copyright (c) 2024 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -1120,11 +1128,24 @@ module ietf-mud-tls {
       NETCONF and RESTCONF. However, for those who try to instantiate this
       model in a network element via the NETCONF and RESTCONF, all objects in
       each model in this document exhibit similar security characteristics as
-      <xref target="RFC8519"></xref>. </t>
+      <xref target="RFC8519"></xref>. This has already been discussed in <xref
+      target="RFC8520"></xref>, and we are reiterating it here for the sake of
+      completeness. </t>
 
       <section title="Considerations for the &quot;iana-tls-profile&quot; Module">
         <t>This section follows the template defined in Section 3.7.1 of <xref
         target="RFC8407"></xref>.</t>
+
+        <t>The YANG module specified in this document defines a schema for
+        data can possibility be accessed via network management protocols such
+        as NETCONF <xref target="RFC6241"></xref> or RESTCONF <xref
+        target="RFC8040"></xref>. These network management protocols are
+        required to use a secure transport layer and mutual authentication,
+        e.g., SSH <xref target="RFC6242"></xref> without the "none"
+        authentication option, Transport Layer Security (TLS) <xref
+        target="RFC8446"></xref> with mutual X.509 authentication, and HTTPS
+        with HTTP authentication (Section 11 of <xref
+        target="RFC9110"></xref>).</t>
 
         <t>The Network Access Control Model (NACM) <xref
         target="RFC8341"></xref> provides the means to restrict access for
@@ -1137,7 +1158,7 @@ module ietf-mud-tls {
         <t>YANG enumerations are not security-sensitive, as they are
         statically defined in the publicly-accessible YANG module. IANA MAY
         deprecate and/or obsolete enumerations over time as needed to address
-        security issues found in the algorithms. </t>
+        security issues. </t>
 
         <t>This module does not define any writable-nodes, RPCs, actions, or
         notifications, and thus the security consideration for such is not
@@ -1147,6 +1168,17 @@ module ietf-mud-tls {
       <section title="Considerations for the &quot;ietf-acl-tls&quot; Module">
         <t>This section follows the template defined in Section 3.7.1 of <xref
         target="RFC8407"></xref>.</t>
+
+        <t>The YANG module specified in this document defines a schema for
+        data that is designed to be accessed via network management protocols
+        such as NETCONF <xref target="RFC6241"> </xref> or RESTCONF <xref
+        target="RFC8040"></xref>. These network management protocols are
+        required to use a secure transport layer and mutual authentication,
+        e.g., SSH <xref target="RFC6242"></xref> without the "none"
+        authentication option, Transport Layer Security (TLS) <xref
+        target="RFC8446"></xref> with mutual X.509 authentication, and HTTPS
+        with HTTP authentication (Section 11 of <xref
+        target="RFC9110"></xref>).</t>
 
         <t>The Network Access Control Model (NACM) <xref
         target="RFC8341"></xref> provides the means to restrict access for
@@ -1176,6 +1208,17 @@ module ietf-mud-tls {
         <t>This section follows the template defined in Section 3.7.1 of <xref
         target="RFC8407"></xref>.</t>
 
+        <t>The YANG module specified in this document defines a schema for
+        data can possibility be accessed via network management protocols such
+        as NETCONF <xref target="RFC6241"></xref> or RESTCONF <xref
+        target="RFC8040"></xref>. These network management protocols are
+        required to use a secure transport layer and mutual authentication,
+        e.g., SSH <xref target="RFC6242"></xref> without the "none"
+        authentication option, Transport Layer Security (TLS) <xref
+        target="RFC8446"></xref> with mutual X.509 authentication, and HTTPS
+        with HTTP authentication (Section 11 of <xref
+        target="RFC9110"></xref>).</t>
+
         <t>The Network Access Control Model (NACM) <xref
         target="RFC8341"></xref> provides the means to restrict access for
         particular users to a pre-configured subset of all available protocol
@@ -1190,7 +1233,7 @@ module ietf-mud-tls {
 
         <t>All the writable data nodes defined by this module may be
         considered sensitive or vulnerable in some network environments. For
-        instance, update that the device does not (D)TLS profile can
+        instance, update that the device does not support (D)TLS profile can
         dramatically alter the implemented security policy. For this reason,
         the NACM extension "default-deny-write" has been set for all data
         nodes defined in this module. </t>
@@ -1490,6 +1533,14 @@ module ietf-mud-tls {
       <?rfc include="reference.I-D.ietf-netconf-crypto-types"  ?>
 
       <?rfc include='reference.RFC.8879'?>
+
+      <?rfc include='reference.RFC.6241'?>
+
+      <?rfc include='reference.RFC.8040'?>
+
+      <?rfc include='reference.RFC.6242'?>
+
+      <?rfc include='reference.RFC.9110'?>
 
       <?rfc include='reference.RFC.8341'?>
 
