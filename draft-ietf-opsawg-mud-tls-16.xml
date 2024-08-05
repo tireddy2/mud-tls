@@ -126,7 +126,9 @@
           <t>Using DNS-over-HTTPS (DoH) <xref target="RFC8484"></xref> to
           avoid detection by malware DNS filtering services <xref
           target="malware-doh"></xref>. Specifically, malware may not use the
-          DoH server provided by the local network.</t>
+          DoH server provided by the local network (DNR <xref
+          target="RFC9463"> </xref> and DDR <xref
+          target="RFC9462"></xref>).</t>
         </list></t>
 
       <t>If (D)TLS profile parameters are defined, the following functions are
@@ -137,7 +139,9 @@
           use. This is superior to the layers 3 and 4 Access Control Lists
           (ACLs) of Manufacturer Usage Description Specification (MUD) <xref
           target="RFC8520"></xref> which are not suitable for broad
-          communication patterns.</t>
+          communication patterns. The goal of this document is to enhance and
+          complement the existing MUD specifications, rather than to undermine
+          them.</t>
 
           <t>Ensure TLS certificates are valid. Several TLS deployments have
           been vulnerable to active Man-In-The-Middle (MITM) attacks because
@@ -204,6 +208,11 @@
 
       <t>'DoH/DoT' refers to DNS-over-HTTPS and/or DNS-over-TLS <xref
       target="RFC7858"></xref>.</t>
+
+      <t>Middlebox: A middlebox that interacts with TLS traffic can either act
+      as a TLS proxy, intercepting and decrypting the traffic for inspection,
+      or inspect the traffic between TLS peers without terminating the TLS
+      session.</t>
     </section>
 
     <section title="Overview of MUD (D)TLS profiles for IoT devices">
@@ -243,18 +252,22 @@
       target="RFC8520"></xref> can be used by the MUD manager to identify the
       IoT manufacturer no longer supports the device.</t>
 
-      <t>The end-of-life of a device does not necessarily mean that it is
-      defective; rather, it denotes a need to replace and upgrade the network
-      to next-generation devices for additional functionality. The network
-      security service will have to rely on other techniques discussed in
-      <xref target="Security"></xref> to identify malicious connections until
-      the device is replaced.</t>
+      <t>The end-of-life (EOL) of a device, where the IoT manufacturer no
+      longer supports it, does not necessarily mean the device is defective.
+      Instead, it signifies that the device is no longer receiving updates,
+      support, or security patches, which necessitates replacement and
+      upgrading to next-generation devices to ensure continued functionality,
+      security, and compatibility with modern networks. The network security
+      service will have to rely on other techniques discussed in <xref
+      target="Security"></xref> to identify malicious connections until the
+      device is replaced.</t>
 
       <t>Compromised IoT devices are typically used for launching DDoS attacks
       (Section 3 of <xref target="RFC8576"></xref>). For example, DDoS attacks
-      like Slowloris and Transport Layer Security (TLS) re-negotiation can be
-      blocked if the victim's server certificate is not be signed by the same
-      certifying authorities trusted by the IoT device.</t>
+      like Slowloris <xref target="slowloris"></xref> and Transport Layer
+      Security (TLS) re-negotiation can be blocked if the victim's server
+      certificate is not be signed by the same certifying authorities trusted
+      by the IoT device.</t>
     </section>
 
     <section title="(D)TLS 1.3 Handshake">
@@ -309,12 +322,12 @@
         tend to require access to very few sites, all other access should be
         considered suspect. This technique complements MUD policy enforcement
         at the TLS level by ensuring that DNS queries are monitored and
-        filtered, thereby enhancing overall security. However, if an IoT
-        device is pre-configured to use a DNS resolver not signaled by the
-        network, the MUD policy enforcement point is moved to that resolver,
-        which cannot enforce the MUD policy based on domain names (Section 8
-        of <xref target="RFC8520"></xref>). If the DNS query is not accessible
-        for inspection, it becomes quite difficult for the infrastructure to
+        filtered, thereby enhancing overall security. If an IoT device is
+        pre-configured to use a DNS resolver not signaled by the network, the
+        MUD policy enforcement point is moved to that resolver, which cannot
+        enforce the MUD policy based on domain names (Section 8 of <xref
+        target="RFC8520"></xref>). If the DNS query is not accessible for
+        inspection, it becomes quite difficult for the infrastructure to
         suspect anything. Thus the use of a DNS resolver not signaled by the
         network is incompatible with MUD in general. A network-designated
         DoH/DoT server is necessary to allow MUD policy enforcement on the
@@ -1009,7 +1022,7 @@ module ietf-mud-tls {
 
           <t>If the MUD (D)TLS profile includes any parameters that are
           susceptible to attacks (e.g., weaker cryptographic parameters), an
-          alert should be triggered to the firewall vendor and the IoT device
+          alert MUST be triggered to the firewall vendor and the IoT device
           owner or administrator.</t>
         </list></t>
     </section>
@@ -1025,7 +1038,7 @@ module ietf-mud-tls {
    "ietf-mud:mud": {
      "mud-version": 1,
       "mud-url": "https://example.com/IoTDevice",
-      "last-update": "2019-18-06T03:56:40.105+10:00",
+      "last-update": "2024-08-05T03:56:40.105+10:00",
       "cache-validity": 100,
       "extensions": [
            "ietf-mud-tls"
@@ -1109,7 +1122,7 @@ module ietf-mud-tls {
 
     <section anchor="Security" title="Security Considerations">
       <t>Security considerations in <xref target="RFC8520"></xref> need to be
-      taken into consideration. The middlebox must adhere to the invariants
+      taken into consideration. The middlebox MUST adhere to the invariants
       discussed in Section 9.3 of <xref target="RFC8446"></xref> to act as a
       compliant proxy.</t>
 
@@ -1277,7 +1290,7 @@ module ietf-mud-tls {
       device and its server(s). There is a tradeoff between privacy of the
       data carried inside (D)TLS (especially e.g., personally identifiable
       information and protected health information) and efficacy of endpoint
-      security. It is strongly RECOMMENDED to avoid a (D)TLS proxy whenever
+      security. The use of (D)TLS proxies is NOT RECOMMENDED whenever
       possible. For example, an enterprise firewall administrator can
       configure the middlebox to bypass (D)TLS proxy functionality or payload
       inspection for connections destined to specific well-known services.
@@ -1515,7 +1528,8 @@ module ietf-mud-tls {
       for SECDIR review. Thanks to Qin Wu for OPSDIR review. Thanks to R.
       Gieben for DNSDIR review. </t>
 
-      <t>Thanks to Roman Danyliw for the IESG review. </t>
+      <t>Thanks to Roman Danyliw, Orie Steele, &Eacute;ric Vyncke and Deb
+      Cooley for the IESG review. </t>
     </section>
   </middle>
 
@@ -1538,8 +1552,6 @@ module ietf-mud-tls {
       <?rfc include='reference.RFC.6347'?>
 
       <?rfc include='reference.RFC.9147'?>
-
-      <?rfc include='reference.RFC.6234'?>
 
       <?rfc include='reference.RFC.8520'?>
 
@@ -1602,8 +1614,6 @@ module ietf-mud-tls {
       <?rfc include='reference.RFC.8613'?>
 
       <?rfc include='reference.RFC.8447'?>
-
-      <?rfc include='reference.RFC.5869'?>
 
       <?rfc include='reference.RFC.8340'?>
 
@@ -1690,6 +1700,19 @@ module ietf-mud-tls {
           </author>
 
           <date month="July" year="2019" />
+        </front>
+      </reference>
+
+      <reference anchor="slowloris"
+                 target="https://web.archive.org/web/20150315054838/http://ha.ckers.org/slowloris/">
+        <front>
+          <title>Slowloris HTTP DoS</title>
+
+          <author fullname="" initials="" surname="">
+            <organization>Cisco</organization>
+          </author>
+
+          <date month="" year="" />
         </front>
       </reference>
     </references>
