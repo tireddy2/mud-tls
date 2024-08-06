@@ -92,7 +92,7 @@
       conjunction with IoT applications' rise of encryption, malware authors
       are also using encryption which thwarts network-based analysis such as
       deep packet inspection (DPI). Other mechanisms are thus needed to help
-      detecting malware running on an IoT device.</t>
+      detect malware running on an IoT device.</t>
 
       <t>Malware often reuses certain libraries, and there are notable
       differences in how malware uses encryption compared to non-malware.
@@ -245,14 +245,14 @@
       devices. Typically, IoT devices have an infrastructure that supports a
       rapid deployment of updates, and malware agents will have a
       near-impossible task of similarly deploying updates and continuing to
-      mimic the TLS behavior of the IoT device it has infected. However, if
-      the IoT device has reached end-of-life and the IoT manufacturer will not
-      issue a firmware or software update to the Thing or will not update the
-      MUD file, the "is-supported" attribute defined in Section 3.6 of <xref
-      target="RFC8520"></xref> can be used by the MUD manager to identify the
-      IoT manufacturer no longer supports the device.</t>
+      mimic the TLS behavior of the IoT device it has infected. </t>
 
-      <t>The end-of-life (EOL) of a device, where the IoT manufacturer no
+      <t>However, if the IoT device has reached end-of-life and the IoT
+      manufacturer will not issue a firmware or software update to the IoT
+      device or will not update the MUD file, the "is-supported" attribute
+      defined in Section 3.6 of <xref target="RFC8520"></xref> can be used by
+      the MUD manager to identify the IoT manufacturer no longer supports the
+      device. The end-of-life (EOL) of a device, where the IoT manufacturer no
       longer supports it, does not necessarily mean the device is defective.
       Instead, it signifies that the device is no longer receiving updates,
       support, or security patches, which necessitates replacement and
@@ -328,11 +328,12 @@
         enforce the MUD policy based on domain names (Section 8 of <xref
         target="RFC8520"></xref>). If the DNS query is not accessible for
         inspection, it becomes quite difficult for the infrastructure to
-        suspect anything. Thus the use of a DNS resolver not signaled by the
-        network is incompatible with MUD in general. A network-designated
-        DoH/DoT server is necessary to allow MUD policy enforcement on the
-        local network, for example, using the techniques specified in DNR<xref
-        target="RFC9463"> </xref> and DDR <xref target="RFC9462"></xref>. </t>
+        detect any issues. Therefore, the use of a DNS resolver that is not
+        signaled by the network is generally incompatible with MUD. A
+        network-designated DoH/DoT server is necessary to allow MUD policy
+        enforcement on the local network, for example, using the techniques
+        specified in DNR<xref target="RFC9463"> </xref> and DDR <xref
+        target="RFC9462"></xref>. </t>
       </section>
     </section>
 
@@ -593,8 +594,8 @@ module ietf-acl-tls {
           length "1..64";
         }
         description
-          "The name of (D)TLS profile; space and special
-           characters are not allowed.";
+           "The name of (D)TLS profile; space and special 
+            characters are not allowed.";
         }
        leaf-list supported-tls-version {
          type ianatp:tls-version;
@@ -689,9 +690,9 @@ module ietf-acl-tls {
 
         <t>The TLS and DTLS IANA registries do not maintain (D)TLS version
         numbers. In (D)TLS 1.2 and below, "legacy_version" field in the
-        ClientHello message is used for version negotiation. However in (D)TLS
-        1.3, the "supported_versions" extension is used by the client to
-        indicate which versions of (D)TLS it supports. TLS 1.3 ClientHello
+        ClientHello message is used for version negotiation. However, in
+        (D)TLS 1.3, the "supported_versions" extension is used by the client
+        to indicate which versions of (D)TLS it supports. TLS 1.3 ClientHello
         messages are identified as having a "legacy_version" of 0x0303 and a
         "supported_versions" extension present with 0x0304 as the highest
         version. DTLS 1.3 ClientHello messages are identified as having a
@@ -954,9 +955,9 @@ module ietf-mud-tls {
 
    augment "/ietf-mud:mud" {
      description
-       "This adds a extension for a manufacturer
-        to indicate whether (D)TLS profile is
-        is supported by a device.";
+       "This adds an extension for a manufacturer
+        to indicate whether the (D)TLS profile is
+        supported by a device.";
      leaf is-tls-dtls-profile-supported {
        type boolean;
        default false;
@@ -1112,7 +1113,7 @@ module ietf-mud-tls {
           by the firewall, it can ignore the unrecognized extension. Because
           the extension type "token_binding" is specified in the profile, an
           alert will be triggered to the firewall vendor and the IoT device
-          owner or administrator to notify the firewall is not up to date.</t>
+          owner or administrator to notify the firewall is not up-to-date.</t>
 
           <t>The two-byte values assigned by IANA for the cipher suites
           TLS_AES_128_GCM_SHA256 and TLS_AES_256_GCM_SHA384 are represented in
@@ -1153,7 +1154,7 @@ module ietf-mud-tls {
 
       <section title="Considerations for the &quot;iana-tls-profile&quot; Module">
         <t>This section follows the template defined in Section 3.7.1 of <xref
-        target="RFC8407"></xref>.</t>
+        target="I-D.ietf-netmod-rfc8407bis"></xref>. </t>
 
         <t>The YANG module specified in this document defines a schema for
         data can possibly be accessed via network management protocols such as
@@ -1186,7 +1187,7 @@ module ietf-mud-tls {
 
       <section title="Considerations for the &quot;ietf-acl-tls&quot; Module">
         <t>This section follows the template defined in Section 3.7.1 of <xref
-        target="RFC8407"></xref>.</t>
+        target="I-D.ietf-netmod-rfc8407bis"></xref>. </t>
 
         <t>The YANG module specified in this document defines a schema for
         data that is designed to be accessed via network management protocols
@@ -1219,13 +1220,21 @@ module ietf-mud-tls {
         "default-deny-write" has been set for all data nodes defined in this
         module.</t>
 
+        <t>Some of the readable data nodes defined in this YANG module may be
+        considered sensitive or vulnerable in some network environments. It is
+        thus important to control read access (e.g., via get, get-config, or
+        notification) to these data nodes. The YANG module will provide
+        insights into (D)TLS profiles of the IoT devices, the privacy
+        considerations discussed in <xref target="Privacy"></xref> needs to be
+        taken into account.</t>
+
         <t>This module does not define any RPCs, actions, or notifications,
         and thus the security consideration for such is not provided here.</t>
       </section>
 
       <section title="Considerations for the &quot;ietf-mud-tls&quot; Module">
         <t>This section follows the template defined in Section 3.7.1 of <xref
-        target="RFC8407"></xref>.</t>
+        target="I-D.ietf-netmod-rfc8407bis"></xref>.</t>
 
         <t>The YANG module specified in this document defines a schema for
         data can possibly be accessed via network management protocols such as
@@ -1301,7 +1310,7 @@ module ietf-mud-tls {
       packet data. For example, Object Security for Constrained RESTful
       Environments (OSCORE) <xref target="RFC8613"></xref> is a proposal that
       protects CoAP messages by wrapping them in the COSE format <xref
-      target="RFC8152"></xref>.</t>
+      target="RFC9052"></xref>.</t>
     </section>
 
     <section anchor="IANA" title="IANA Considerations">
@@ -1358,7 +1367,7 @@ module ietf-mud-tls {
 
       <section anchor="iana-tls"
                title="Considerations for the iana-tls-profile Module">
-        <t>IANA is requested to create an the initial version of the
+        <t>IANA is requested to create the initial version of the
         IANA-maintained YANG Module called "iana-tls-profile", based on the
         contents of <xref target="yang-iana"></xref>, which will allow for new
         (D)TLS parameters and (D)TLS versions to be added. IANA is requested
@@ -1528,8 +1537,8 @@ module ietf-mud-tls {
       for SECDIR review. Thanks to Qin Wu for OPSDIR review. Thanks to R.
       Gieben for DNSDIR review. </t>
 
-      <t>Thanks to Roman Danyliw, Orie Steele, &Eacute;ric Vyncke and Deb
-      Cooley for the IESG review. </t>
+      <t>Thanks to Roman Danyliw, Orie Steele, &Eacute;ric Vyncke, Mahesh
+      Jethanandani and Deb Cooley for the IESG review. </t>
     </section>
   </middle>
 
@@ -1609,15 +1618,13 @@ module ietf-mud-tls {
 
       <?rfc include='reference.RFC.7301'?>
 
-      <?rfc include="reference.RFC.8152"?>
+      <?rfc include="reference.RFC.9052"?>
 
       <?rfc include='reference.RFC.8613'?>
 
       <?rfc include='reference.RFC.8447'?>
 
       <?rfc include='reference.RFC.8340'?>
-
-      <?rfc include='reference.RFC.8407'?>
 
       <?rfc include="reference.I-D.ietf-tls-esni" ?>
 
@@ -1627,7 +1634,9 @@ module ietf-mud-tls {
 
       <?rfc include='reference.RFC.7858'?>
 
-      <?rfc include="reference.I-D.ietf-uta-tls13-iot-profile"   ?>
+      <?rfc include="reference.I-D.ietf-uta-tls13-iot-profile"  ?>
+
+      <?rfc include="reference.I-D.ietf-netmod-rfc8407bis"?>
 
       <reference anchor="X501">
         <front>
