@@ -1759,11 +1759,11 @@ Internet-Draft     MUD (D)TLS Profile for IoT devices        August 2024
    and https://www.iana.org/assignments/tls-extensiontype-values/tls-
    extensiontype-values.txt) excluding the tls-version and dtls-version
    parameters.  Further assignments are to be made through Expert Review
-   [RFC8126].  Experts must ensure that the (D)TLS parameter being
-   registered is standardized by the IETF.  The registry is expected to
-   be updated periodically, primarily when a new (D)TLS parameter is
-   standardized by the IETF.  The registry is initially populated with
-   the following parameters:
+   [RFC8126].  Experts must ensure that the (D)TLS parameter in a new
+   registration is one that has been standardized by the IETF.  The
+   registry is expected to be updated periodically, primarily when a new
+   (D)TLS parameter is standardized by the IETF.  The registry is
+   initially populated with the following parameters:
 
 
 
